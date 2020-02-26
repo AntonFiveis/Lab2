@@ -2,11 +2,13 @@
 #include "Func.h"
 int main() {
 	vector<ifstream> InFiles = FindCSV("csv/");
+	ofstream outFile("results.csv");
+	vector<pair<string, vector<int>>> results;
+	int n = 0;
 	for (int i = 0; i < InFiles.size(); i++) {
-		ofstream outFile("results" + to_string(i) + ".csv");
-		auto temp = inputDataCSVFile(InFiles[i]);
-		Analis(outFile, temp);
-		outFile.close();
+		
+		inputDataCSVFile(InFiles[i],results,n);
+		//Analis(outFile, temp);
 	}
 
 	for (int i = 0; i < InFiles.size();i++) {
