@@ -31,5 +31,16 @@ vector<ifstream> FindCSV(string path) {
 	return arr;
 }
 vector < pair<string, vector<int>>> inputDataCSVFile(ifstream& fin) {
+	int count;
+	fin >> count;
 
+	vector<pair<string, vector<int>>> ans(count);
+	for (int i = 0; i < count; i++) {
+		getline(fin, ans[i].first, ',');
+		for (int j = 0; j < 20; j++) {
+			fin >> ans[i].second[j];
+			fin.get();
+		}
+	}
+	return ans;
 }
