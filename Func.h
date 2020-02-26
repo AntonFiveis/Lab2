@@ -7,5 +7,7 @@
 using namespace std;
 vector<ifstream> FindCSV(string);
 vector<pair<string, vector<int>>> inputDataCSVFile(ifstream&);
-void Analis(ofstream&, vector<pair<string, vector<int>>>);
+vector<int> Top(vector<pair<string, vector<int>>>);
+void AddingPoints(vector<pair<string, vector<int>>>&, vector<int>, vector<int>&);
+vector<int> findFirst10inCollomn(vector<int>);
 #endif // !FUNC_H

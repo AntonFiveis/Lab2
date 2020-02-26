@@ -2,7 +2,7 @@
 #include <exception>
 #include <filesystem>
 #include <iostream>
-
+#include <algorithm>
 namespace fs = std::filesystem;
 vector<ifstream> FindCSV(string path) {
 	string extension = ".csv";
@@ -20,8 +20,6 @@ vector<ifstream> FindCSV(string path) {
 			if (!match)
 				continue;
 			arr.push_back(ifstream(p));
-
-			cout << name << '\n';
 		}
 	}
 	catch (exception& e)
@@ -30,7 +28,7 @@ vector<ifstream> FindCSV(string path) {
 	}
 	return arr;
 }
-vector < pair<string, vector<int>>> inputDataCSVFile(ifstream& fin) {
+vector<pair<string, vector<int>>> inputDataCSVFile(ifstream& fin) {
 	int count;
 	fin >> count;
 
@@ -38,9 +36,35 @@ vector < pair<string, vector<int>>> inputDataCSVFile(ifstream& fin) {
 	for (int i = 0; i < count; i++) {
 		getline(fin, ans[i].first, ',');
 		for (int j = 0; j < 20; j++) {
-			fin >> ans[i].second[j];
+			int temp;
+			fin >> temp;
+			ans[i].second.push_back(temp);
 			fin.get();
 		}
 	}
 	return ans;
+}
+vector<int> findFirst10inCollomn(vector<int> v) {
+	vector<int> ans(10);
+	sort(v.begin(), v.end());
+	for (int i = 0; i < 10; i++) {
+		ans[i] = v[v.size() - 11 + i];
+	}
+	return ans;
+}
+
+void AddingPoints(vector<pair<string, vector<int>>>& v, vector<int> temp, vector<int>& PointList) {
+
+}
+
+vector<int> Top( vector<pair<string, vector<int>>> v) {
+	vector<int> PointList(v.size());
+	for (int i = 0; i < 20; i++) {
+		vector<int> temp;
+		for (int j = 0; j < v.size(); j++) {
+			temp.push_back(v[j].second[i]);
+		}
+		AddingPoints(v, temp, PointList);
+
+	}
 }
