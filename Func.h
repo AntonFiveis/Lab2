@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 #include <fstream>
-std::vector<std::ifstream> FindCSV(std::string);
-
+using namespace std;
+vector<ifstream> FindCSV(string);
+vector<pair<string, vector<int>>> inputDataCSVFile(ifstream&);
+void Analis(ofstream&, vector<pair<string, vector<int>>>);
 #endif // !FUNC_H

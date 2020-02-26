@@ -4,7 +4,6 @@
 #include <iostream>
 
 namespace fs = std::filesystem;
-using namespace std;
 vector<ifstream> FindCSV(string path) {
 	string extension = ".csv";
 	vector<ifstream> arr;
@@ -30,4 +29,7 @@ vector<ifstream> FindCSV(string path) {
 		cout << "Error: " << e.what() << '\n';
 	}
 	return arr;
+}
+vector < pair<string, vector<int>>> inputDataCSVFile(ifstream& fin) {
+
 }
