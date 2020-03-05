@@ -5,7 +5,8 @@
 #include <vector>
 #include <fstream>
 using namespace std;
-vector<ifstream> FindCSV(string);
+vector<ifstream> FindCSV();
+string inputPath();
 void inputDataCSVFile(ifstream&, vector<pair<string, vector<int>>>&);
 vector<pair<string,int>> Top(vector<pair<string, vector<int>>>);
 void AddingPoints(vector<pair<string, vector<int>>>&, vector<int>, vector<int>&);

@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Func.h"
 int main() {
-	vector<ifstream> InFiles = FindCSV("csv/");
+	vector<ifstream> InFiles = FindCSV();
 	ofstream outFile("results.csv");
 	vector<pair<string, vector<int>>> results;
 	vector<pair<string, int>> TopList;
