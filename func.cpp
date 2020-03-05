@@ -2,7 +2,6 @@
 #include <exception>
 #include <filesystem>
 #include <iostream>
-#include <algorithm>
 namespace fs = std::filesystem;
 vector<ifstream> FindCSV(string path) {
 	string extension = ".csv";
@@ -31,52 +30,72 @@ vector<ifstream> FindCSV(string path) {
 void inputDataCSVFile(ifstream& fin, vector<pair<string, vector<int>>>& ans) {
 	int count;
 	fin >> count;
-	ans.resize(ans.size() + count);
+	fin.get();
 	for (int i = 0; i < count; i++) {
-		getline(fin, ans[ans.size()-1+i].first, ',');
+		string s;
+		getline(fin, s, ',');
+		ans.push_back({ s,{} });
 		for (int j = 0; j < 20; j++) {
 			int temp;
 			fin >> temp;
-			ans[ans.size()-1+i].second.push_back(temp);
+			ans[ans.size()-1].second.push_back(temp);
 			fin.get();
 		}
 	}
+	for (int i = 0; i < ans.size(); i++) {
+		cout <<i<<endl <<ans[i].first << ' ';
+		for (auto j : ans[i].second) {
+			cout << j << ' ';
+		}
+		cout << endl;
+	}
 
 }
-vector<int> findFirst10inCollomn(vector<int> v) {
-	vector<int> ans(10);
-	sort(v.begin(), v.end());
+vector<pair<int,int>> findFirst10inCollomn(vector<pair<int,int>> v) {
+	InsertSort(v);
+	v.erase(v.begin(), v.end() - 10);
+	return v;
+}
+
+void AddingPoints(vector<pair<string, vector<int>>> v, vector<pair<int,int>> temp, vector<pair<int, int>>& PointList) {
+	vector<int> arr={ 1,2,3,4,5,6,7,8,10,12 };
+	for (int j = 0; j < 10; j++) {
+		PointList[temp[j].first].second += arr[j];
+	}
+
+}
+void output(vector<pair<int, int>> v) {
+	cout << endl;
+	for (int i = 0; i < v.size(); i++) {
+		cout << v[i].first << ' ' << v[i].second << endl;;
+	
+	}
+}
+vector<pair<string,int>> Top( vector<pair<string, vector<int>>> v) {
+	vector<pair<int,int>> PointList(v.size());
+	vector<pair<string, int>> ans(10);
+	for (int i = 0; i < PointList.size(); i++)
+	{
+		PointList[i] = {i,0};
+	}
+	output(PointList);
+	for (int i = 0; i < 20; i++) {
+		vector<pair<int,int>> temp;
+		for (int j = 0; j < v.size(); j++) {
+			temp.push_back({ j, v[j].second[i] });
+		}
+		output(temp);
+		temp = findFirst10inCollomn(temp);
+		output(temp);
+		AddingPoints(v, temp, PointList);
+		output(PointList);
+	}
+
+	PointList=findFirst10inCollomn(PointList);
 	for (int i = 0; i < 10; i++) {
-		ans[i] = v[v.size() - 11 + i];
+		ans[i] = { v[PointList[i].first].first,PointList[i].second };
 	}
 	return ans;
-}
-
-void AddingPoints(vector<pair<string, vector<int>>> v, vector<int> temp, vector<pair<int, int>>& PointList,int count) {
-	vector<int> arr{ 1,2,3,4,5,6,7,8,10,12 };
-	
-	for (int i = 0; i < 10; i++) {
-		for (int j = 0; j < v.size(); j++) {
-			if (v[j].second[count] == temp[i]) {
-				PointList[j].second += arr[i];
-				break;
-			}
-		}
-	}
-}
-
-vector<int> Top( vector<pair<string, vector<int>>> v) {
-	vector<pair<int,int>> PointList(v.size());
-	for (int i = 0; i < 20; i++) {
-		vector<int> temp;
-		for (int j = 0; j < v.size(); j++) {
-			temp.push_back(v[j].second[i]);
-		}
-		AddingPoints(v, temp, PointList, i);
-	}
-	InsertSort(PointList);
-	PointList.erase(PointList.begin(), PointList.end() - 11);
-
 }
 
 void InsertSort(vector<pair<int,int>> &arr) {
