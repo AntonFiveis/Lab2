@@ -42,13 +42,6 @@ void inputDataCSVFile(ifstream& fin, vector<pair<string, vector<int>>>& ans) {
 			fin.get();
 		}
 	}
-	for (int i = 0; i < ans.size(); i++) {
-		cout <<i<<endl <<ans[i].first << ' ';
-		for (auto j : ans[i].second) {
-			cout << j << ' ';
-		}
-		cout << endl;
-	}
 
 }
 vector<pair<int,int>> findFirst10inCollomn(vector<pair<int,int>> v) {
@@ -64,13 +57,7 @@ void AddingPoints(vector<pair<string, vector<int>>> v, vector<pair<int,int>> tem
 	}
 
 }
-void output(vector<pair<int, int>> v) {
-	cout << endl;
-	for (int i = 0; i < v.size(); i++) {
-		cout << v[i].first << ' ' << v[i].second << endl;;
-	
-	}
-}
+
 vector<pair<string,int>> Top( vector<pair<string, vector<int>>> v) {
 	vector<pair<int,int>> PointList(v.size());
 	vector<pair<string, int>> ans(10);
@@ -78,17 +65,14 @@ vector<pair<string,int>> Top( vector<pair<string, vector<int>>> v) {
 	{
 		PointList[i] = {i,0};
 	}
-	output(PointList);
+
 	for (int i = 0; i < 20; i++) {
 		vector<pair<int,int>> temp;
 		for (int j = 0; j < v.size(); j++) {
 			temp.push_back({ j, v[j].second[i] });
 		}
-		output(temp);
 		temp = findFirst10inCollomn(temp);
-		output(temp);
 		AddingPoints(v, temp, PointList);
-		output(PointList);
 	}
 
 	PointList=findFirst10inCollomn(PointList);
